@@ -39,12 +39,12 @@ function onResults(results)
 
    if (indexPos.x > thumbPos.x)
    {
-      onNextPage();
+      //onNextPage();
       return "Direita";
    }
    else
    {
-      onPrevPage();
+      //onPrevPage();
       return "Esquerda";
    }
  }
