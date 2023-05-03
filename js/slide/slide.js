@@ -39,11 +39,13 @@ function onResults(results)
 
    if (indexPos.x > thumbPos.x)
    {
-     return "Direita";
+      onNextPage();
+      return "Direita";
    }
    else
    {
-     return "Esquerda";
+      onPrevPage();
+      return "Esquerda";
    }
  }
 const fingerDirectionElement = document.getElementById('finger-direction');
@@ -169,35 +171,6 @@ function onNextPage()
 document.getElementById('next').addEventListener('click', onNextPage);
 // Fim - Função que muda para a proxima página
 
-
-
-
-
-
-
-
-
-
-
-// Variável global para armazenar a posição anterior da mão
-let prevHandPos = null;
-
-// Função para verificar se a mão apontou para a direita
-function handPointedRight(handLandmarks) {
-  const currentHandPos = handLandmarks[8].x; // posição x do dedo indicador
-  if (prevHandPos !== null && currentHandPos > prevHandPos) {
-    return true;
-  }
-  prevHandPos = currentHandPos;
-  return false;
-}
-
-// Função para atualizar a página se a mão apontar para a direita
-function useFingerNext(handLandmarks) {
-  if (handPointedRight(handLandmarks)) {
-    onNextPage();
-  }
-}
 
 
 
