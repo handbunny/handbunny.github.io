@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Desenho com Reconhecimento de Mão</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/dist/hands.min.js"></script>
+  </head>
+  <body>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script>
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+
+      // Cria um objeto Hands
+      const hands = new Hands({locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
+      }});
+      
+      // Inicializa a detecção de mãos na imagem de entrada
+      hands.setOptions({
+        maxNumHands: 1,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5
+      });
+      hands.onResults(onResults);
+      
+      // Inicia a webcam
+      const video = document.createElement('video');
+      video.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
+      video.addEventListener('loadedmetadata', () => {
+        video.play();
+        hands.initialize();
+        requestAnimationFrame(renderFrame);
+      });
+      
+      // Desenha o resultado na tela
+      function onResults(results) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (results.multiHandLandmarks) {
+          for (const landmarks of results.multiHandLandmarks) {
+            drawHand(landmarks);
+          }
+        }
+      }
+
+      // Desenha uma mão na tela
+      function drawHand(landmarks) {
+        for (const point of landmarks) {
+          ctx.beginPath();
+          ctx.arc(point.x * canvas.width, point.y * canvas.height, 5, 0, 2 * Math.PI);
+          ctx.fill();
+        }
+      }
+      
+      // Renderiza um quadro da webcam
+      function renderFrame() {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        hands.send({image: video});
+        requestAnimationFrame(renderFrame);
+      }
+    </script>
+  </body>
+</html>

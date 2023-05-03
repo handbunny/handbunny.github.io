@@ -170,6 +170,16 @@ document.getElementById('next').addEventListener('click', onNextPage);
 // Fim - Função que muda para a proxima página
 
 
+//Se o dedo for apontado para Direita o pdf adianta uma página
+function useFingerNext (handLandmarks)
+{
+pageNum++;
+queueRenderPage(pageNum);
+document.getElementById('prev').addEventListener('click', onPrevPage);
+}
+// Fim - Se o dedo for apontado para Direita o pdf adianta uma página
+
+
 
 
 //Carrega o slide
