@@ -170,14 +170,35 @@ document.getElementById('next').addEventListener('click', onNextPage);
 // Fim - Função que muda para a proxima página
 
 
-//Se o dedo for apontado para Direita o pdf adianta uma página
-function useFingerNext (handLandmarks)
-{
-pageNum++;
-queueRenderPage(pageNum);
-document.getElementById('prev').addEventListener('click', onPrevPage);
+
+
+
+
+
+
+
+
+
+// Variável global para armazenar a posição anterior da mão
+let prevHandPos = null;
+
+// Função para verificar se a mão apontou para a direita
+function handPointedRight(handLandmarks) {
+  const currentHandPos = handLandmarks[8].x; // posição x do dedo indicador
+  if (prevHandPos !== null && currentHandPos > prevHandPos) {
+    return true;
+  }
+  prevHandPos = currentHandPos;
+  return false;
 }
-// Fim - Se o dedo for apontado para Direita o pdf adianta uma página
+
+// Função para atualizar a página se a mão apontar para a direita
+function useFingerNext(handLandmarks) {
+  if (handPointedRight(handLandmarks)) {
+    onNextPage();
+  }
+}
+
 
 
 
