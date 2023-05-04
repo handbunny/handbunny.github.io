@@ -167,3 +167,22 @@ document.getElementById('inputGroupFile').addEventListener('change', function()
   };
   fileReader.readAsArrayBuffer(file);
 });
+
+
+
+
+
+
+const botao_prox = document.getElementById("next");
+
+const observer = new MutationObserver((mutations) => {
+    for (const mutation of mutations) {
+        const texto = mutation.target.textContent.toLowerCase();
+            if (texto.includes("esquerda")) {
+                botao_prox.click();
+                break;
+            }
+        }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
