@@ -40,11 +40,15 @@ function onResults(results)
    if (indexPos.x > thumbPos.x)
    {
       //onNextPage();
+      //PDFViewerApplication.pdfViewer.currentPageNumber += 1;
+      pageNum--;
+      queueRenderPage(pageNum);    
       return "Direita";
    }
    else
    {
       //onPrevPage();
+      PDFViewerApplication.pdfViewer.currentPageNumber -= 1;
       return "Esquerda";
    }
  }
