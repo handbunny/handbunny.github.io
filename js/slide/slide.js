@@ -28,22 +28,25 @@ const videoElement = document.getElementsByClassName('input_video')[0];
       }
 
        // Função que verifica a direção do dedo indicador
-       function checkFingerDirection(handLandmarks)
-       {
-         // posicao do dedo indicador (indice 8) e do polegar (indice 4)
-         const thumbPos = handLandmarks[4];
-         const indexPos = handLandmarks[8];
- 
-         if (indexPos.x > thumbPos.x)
-         {
-           return "Direita";
-         }
-         else
-         {
-           return "Esquerda";
-         }
-       }
-      const fingerDirectionElement = document.getElementById('finger-direction');
+       function checkFingerDirection(handLandmarks) {
+        if (!handLandmarks)
+        {
+          return "__"; // retorna null se não houver handLandmarks
+        }
+        // posicao do dedo indicador (indice 8) e do polegar (indice 4)
+        const thumbPos = handLandmarks[4];
+        const indexPos = handLandmarks[8];
+      
+        if (indexPos.x > thumbPos.x)
+        {
+          return "Direita";
+        }
+        else
+        {
+          return "Esquerda";
+        }
+      }
+      const fingerDirectionElement = document.getElementById('finger-direction');      
       // Fim - Função que verifica a direção do dedo indicador
 
       // Configura o detector de mãos do MediaPipe Hands
