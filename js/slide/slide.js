@@ -184,8 +184,9 @@ document.getElementById('inputGroupFile').addEventListener('change', function()
 const botao_prox = document.getElementById("next");
 const botao_antes = document.getElementById("prev");
 
+let canClick = true; // Variável para controlar o delay entre cliques
+
    const observer = new MutationObserver((mutations) => {
-    let canClick = true; // Variável para controlar o delay entre cliques
     for (const mutation of mutations) {
         const texto = mutation.target.textContent.toLowerCase();
         if (texto.includes("direita") && canClick) {
