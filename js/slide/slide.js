@@ -193,7 +193,7 @@ const botao_antes = document.getElementById("prev");
             canClick = false;
             setTimeout(() => {
                 canClick = true;
-            }, 2000); // Delay de 1 segundo entre cliques
+            }, 5000); // Delay 
             break;
         }
         else if (texto.includes("esquerda") && canClick) {
@@ -201,7 +201,7 @@ const botao_antes = document.getElementById("prev");
             canClick = false;
             setTimeout(() => {
                 canClick = true;
-            }, 2000); // Delay de 1 segundo entre cliques
+            }, 5000); // Delay 
             break;
         }
     }
