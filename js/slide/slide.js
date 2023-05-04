@@ -26,10 +26,6 @@ function onResults(results)
             fingerDirectionElement.textContent = direction;
         }
     }
-    else
-    {
-        fingerDirectionElement.textContent = "Mão não identificada";
-    }
     canvasCtx.restore();
 }
 
@@ -44,7 +40,7 @@ function checkFingerDirection(handLandmarks)
         document.getElementById("finger-direction").textContent = "Direita";
         setTimeout(() => {
             document.getElementById("finger-direction").textContent = "";
-        }, 1000);
+        }, 2000);
         return "Direita";
     }
     else
@@ -53,7 +49,7 @@ function checkFingerDirection(handLandmarks)
         document.getElementById("finger-direction").textContent = "Esquerda";
         setTimeout(() => {
             document.getElementById("finger-direction").textContent = "";
-        }, 1000);
+        }, 2000);
         return "Esquerda";
     }
 }
