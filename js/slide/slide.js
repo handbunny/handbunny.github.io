@@ -201,13 +201,18 @@ const observer = new MutationObserver((mutations) => {
 
 
 
-// obtém o elemento HTML com a ID "finger-direction"
-const direcao = document.getElementById("finger-direction");
+    // seleciona o elemento com o ID "finger-direction"
+const fingerDirection = document.querySelector("#finger-direction");
 
-// define uma função que atualiza o valor do elemento HTML
-function updateFingerDirection() {
-  direcao.textContent = "batata";
-}
+// cria uma nova MutationObserver que chama a função a cada mudança no valor do elemento
+const observerx = new MutationObserver(() => {
+  fingerDirection.textContent = "nenhum";
+});
 
-// chama a função updateFingerDirection() a cada segundo usando setInterval()
-setInterval(updateFingerDirection, 1000);
+// configura a MutationObserver para observar mudanças no atributo 'value' do elemento
+observerx.observe(fingerDirection, { attributes: true, attributeFilter: ["value"] });
+
+// atualiza o valor do elemento para 'nenhum' a cada segundo
+setInterval(() => {
+  fingerDirection.setAttribute("value", "nenhum");
+}, 1000);
