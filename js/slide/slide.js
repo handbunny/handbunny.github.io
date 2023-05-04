@@ -9,15 +9,6 @@ function onResults(results)
     // Limpa o canvas
     canvasCtx.clearRect( 0, 0, canvasElement.width, canvasElement.height );
 
-    // Verifica se há mão na webcam
-    if (!results.multiHandLandmarks)
-    {
-        // Não há mão na webcam
-        fingerDirectionElement.textContent = "Nenhuma mão detectada";
-        canvasCtx.restore();
-        return;
-    }
-
     // Desenha a imagem da câmera no canvas
     canvasCtx.drawImage( results.image, 0, 0, canvasElement.width, canvasElement.height );
     if (results.multiHandLandmarks)
@@ -29,29 +20,44 @@ function onResults(results)
 
             // verifica a direção do dedo indicador
             const direction = checkFingerDirection(landmarks);
+
             // Atualiza a legenda com a direção do dedo indicador
             //fingerDirectionElement.textContent = checkFingerDirection(landmarks);
             fingerDirectionElement.textContent = direction;
         }
     }
+    else
+    {
+        fingerDirectionElement.textContent = "Mão não identificada";
+    }
     canvasCtx.restore();
 }
 
- // Função que verifica a direção do dedo indicador
- function checkFingerDirection(handLandmarks)
- {
-   // posicao do dedo indicador (indice 8) e do polegar (indice 4)
+function checkFingerDirection(handLandmarks)
+{
     const thumbPos = handLandmarks[4];
-   const indexPos = handLandmarks[8];
+    const indexPos = handLandmarks[8];
+
     if (indexPos.x > thumbPos.x)
     {
+        // Exibe "Direita" por 1 segundos
+        document.getElementById("finger-direction").textContent = "Direita";
+        setTimeout(() => {
+            document.getElementById("finger-direction").textContent = "";
+        }, 1000);
         return "Direita";
     }
     else
     {
+        // Exibe "Esquerda" por 1 segundos
+        document.getElementById("finger-direction").textContent = "Esquerda";
+        setTimeout(() => {
+            document.getElementById("finger-direction").textContent = "";
+        }, 1000);
         return "Esquerda";
     }
- }
+}
+
 const fingerDirectionElement = document.getElementById('finger-direction');
 // Fim - Função que verifica a direção do dedo indicador
 
@@ -197,3 +203,5 @@ const observer = new MutationObserver((mutations) => {
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+   
