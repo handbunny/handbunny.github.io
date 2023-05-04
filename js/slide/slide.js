@@ -197,3 +197,10 @@ const observer = new MutationObserver((mutations) => {
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
+
+// Atualiza o valor do atributo "value" do elemento com id "finger-direction"
+const fingerDirection = document.getElementById("finger-direction");
+setInterval(function() {
+  const newValue = /*coloque aqui a lógica para obter o novo valor*/
+  fingerDirection.setAttribute("value", newValue);
+}, 1000); // atualiza o valor a cada 1000ms (1 segundo)
