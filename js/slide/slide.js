@@ -40,17 +40,20 @@ function onResults(results)
  function checkFingerDirection(handLandmarks)
  {
    // posicao do dedo indicador (indice 8) e do polegar (indice 4)
-   const thumbPos = handLandmarks[4];
-   const indexPos = handLandmarks[8];
-
-   if (indexPos.x > thumbPos.x)
-   {
-     return "Direita";
-   }
-   else
-   {
-     return "Esquerda";
-   }
+    const thumbPos = handLandmarks[4];
+    const indexPos = handLandmarks[8];
+    if (indexPos.x > thumbPos.x)
+    {
+        return "Direita";
+    }
+    if ( indexPos.x < thumbPos.x)
+    {
+        return "Esquerda";
+    }
+    else
+    {
+        return "Parado";
+    }
  }
 const fingerDirectionElement = document.getElementById('finger-direction');
 // Fim - Função que verifica a direção do dedo indicador
@@ -197,10 +200,3 @@ const observer = new MutationObserver((mutations) => {
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-
-// Atualiza o valor do atributo "value" do elemento com id "finger-direction"
-const fingerDirection = document.getElementById("finger-direction");
-setInterval(function() {
-  const newValue = /*coloque aqui a lógica para obter o novo valor*/
-  fingerDirection.setAttribute("value", newValue);
-}, 1000); // atualiza o valor a cada 1000ms (1 segundo)
