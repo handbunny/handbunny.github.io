@@ -3,37 +3,27 @@ const canvasElement = document.getElementsByClassName('output_canvas')[0];
 const canvasCtx = canvasElement.getContext('2d');
 
 // Função que processa os resultados da detecção de mãos
-function onResults(results) {
-    canvasCtx.save();
-    // Limpa o canvas
-    canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
-    
-    if (!results.multiHandLandmarks) {
-      // Não há mão na webcam
-      fingerDirectionElement.textContent = "Vazio";
-      canvasCtx.restore();
-      return;
+function onResults(results)
+{
+  canvasCtx.save();
+   // Limpa o canvas
+  canvasCtx.clearRect( 0, 0, canvasElement.width, canvasElement.height );
+  canvasCtx.drawImage( results.image, 0, 0, canvasElement.width, canvasElement.height );
+  if (results.multiHandLandmarks)
+  {
+    for (const landmarks of results.multiHandLandmarks)
+    {
+      drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,  {color: '#F1FAEE', lineWidth: 3}  );
+      drawLandmarks(canvasCtx, landmarks, {color: '#E63946', lineWidth: 1});
+
+       // verifica a direção do dedo indicador
+       const direction = checkFingerDirection(landmarks);
+       // Atualiza a legenda com a direção do dedo indicador
+       fingerDirectionElement.textContent = checkFingerDirection(landmarks);
     }
-  
-    for (const landmarks of results.multiHandLandmarks) {
-      drawConnectors(
-        canvasCtx,
-        landmarks,
-        HAND_CONNECTIONS,
-        { color: "#F1FAEE", lineWidth: 3 }
-      );
-      drawLandmarks(canvasCtx, landmarks, { color: "#E63946", lineWidth: 1 });
-  
-      // verifica a direção do dedo indicador
-      const direction = checkFingerDirection(landmarks);
-      // Atualiza a legenda com a direção do dedo indicador
-      fingerDirectionElement.textContent = checkFingerDirection(landmarks);
-    }
-    
-    canvasCtx.restore();
   }
-  
-  
+  canvasCtx.restore();
+}
 
  // Função que verifica a direção do dedo indicador
  function checkFingerDirection(handLandmarks)
