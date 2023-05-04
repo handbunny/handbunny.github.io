@@ -174,12 +174,17 @@ document.getElementById('inputGroupFile').addEventListener('change', function()
 
 
 const botao_prox = document.getElementById("next");
+const botao_antes = document.getElementById("prev");
 
 const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
         const texto = mutation.target.textContent.toLowerCase();
-            if (texto.includes("esquerda")) {
+            if (texto.includes("direita")) {
                 botao_prox.click();
+                break;
+            }
+            if (texto.includes("esquerda")) {
+                botao_antes.click();
                 break;
             }
         }
