@@ -183,7 +183,7 @@ const observer = new MutationObserver((mutations) => {
                 botao_prox.click();
                 break;
             }
-            if (texto.includes("esquerda")) {
+            else if (texto.includes("esquerda")) {
                 botao_antes.click();
                 break;
             }
