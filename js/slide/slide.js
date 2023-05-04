@@ -24,13 +24,14 @@ function onResults(results)
     {
         for (const landmarks of results.multiHandLandmarks)
         {
-        drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,  {color: '#F1FAEE', lineWidth: 3}  );
-        drawLandmarks(canvasCtx, landmarks, {color: '#E63946', lineWidth: 1});
+            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,  {color: '#F1FAEE', lineWidth: 3}  );
+            drawLandmarks(canvasCtx, landmarks, {color: '#E63946', lineWidth: 1});
 
-        // verifica a direção do dedo indicador
-        const direction = checkFingerDirection(landmarks);
-        // Atualiza a legenda com a direção do dedo indicador
-        fingerDirectionElement.textContent = checkFingerDirection(landmarks);
+            // verifica a direção do dedo indicador
+            const direction = checkFingerDirection(landmarks);
+            // Atualiza a legenda com a direção do dedo indicador
+            //fingerDirectionElement.textContent = checkFingerDirection(landmarks);
+            fingerDirectionElement.textContent = direction;
         }
     }
     canvasCtx.restore();
@@ -41,18 +42,14 @@ function onResults(results)
  {
    // posicao do dedo indicador (indice 8) e do polegar (indice 4)
     const thumbPos = handLandmarks[4];
-    const indexPos = handLandmarks[8];
+   const indexPos = handLandmarks[8];
     if (indexPos.x > thumbPos.x)
     {
         return "Direita";
     }
-    if ( indexPos.x < thumbPos.x)
-    {
-        return "Esquerda";
-    }
     else
     {
-        return "Parado";
+        return "Esquerda";
     }
  }
 const fingerDirectionElement = document.getElementById('finger-direction');
