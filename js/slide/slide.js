@@ -1,4 +1,4 @@
-const videoElement = document.getElementsByClassName('input_video')[0];
+      const videoElement = document.getElementsByClassName('input_video')[0];
       const canvasElement = document.getElementsByClassName('output_canvas')[0];
       const canvasCtx = canvasElement.getContext('2d');
       
@@ -168,16 +168,5 @@ const videoElement = document.getElementsByClassName('input_video')[0];
         fileReader.readAsArrayBuffer(file);
       });
 
-//
+    // Fim - PDF
 
-
-      const next_button = document.getElementById("next");
-
-      function verificarTexto() {
-        const texto = document.body.innerText.toLowerCase();
-        if (texto.includes("esquerda")) {
-          next_button.click();
-        }
-      }
-
-      setInterval(verificarTexto, 1000); // Verifica a cada 1 segundo se a palavra "esquerda" apareceu na tela
