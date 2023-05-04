@@ -197,8 +197,3 @@ const observer = new MutationObserver((mutations) => {
     });
 
     observer.observe(document.body, { childList: true, subtree: true });
-
-    setInterval(() => {
-      document.getElementById("finger-direction").value = "nenhum";
-    }, 1000);
-    
