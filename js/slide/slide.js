@@ -41,8 +41,8 @@ function onResults(results)
    {
       //onNextPage();
       //PDFViewerApplication.pdfViewer.currentPageNumber += 1;
-      pageNum--;
-      queueRenderPage(pageNum);    
+      //pageNum--;
+      //queueRenderPage(pageNum);    
       return "Direita";
    }
    else
