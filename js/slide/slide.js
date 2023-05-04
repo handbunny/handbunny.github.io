@@ -198,21 +198,7 @@ const observer = new MutationObserver((mutations) => {
 
     observer.observe(document.body, { childList: true, subtree: true });
 
-
-
-
-    // seleciona o elemento com o ID "finger-direction"
-const fingerDirection = document.querySelector("#finger-direction");
-
-// cria uma nova MutationObserver que chama a função a cada mudança no valor do elemento
-const observerx = new MutationObserver(() => {
-  fingerDirection.textContent = "nenhum";
-});
-
-// configura a MutationObserver para observar mudanças no atributo 'value' do elemento
-observerx.observe(fingerDirection, { attributes: true, attributeFilter: ["value"] });
-
-// atualiza o valor do elemento para 'nenhum' a cada segundo
-setInterval(() => {
-  fingerDirection.setAttribute("value", "nenhum");
-}, 1000);
+    setInterval(() => {
+      document.getElementById("finger-direction").value = "nenhum";
+    }, 1000);
+    
