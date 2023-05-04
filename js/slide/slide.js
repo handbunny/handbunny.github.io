@@ -184,20 +184,27 @@ document.getElementById('inputGroupFile').addEventListener('change', function()
 const botao_prox = document.getElementById("next");
 const botao_antes = document.getElementById("prev");
 
-const observer = new MutationObserver((mutations) => {
+   const observer = new MutationObserver((mutations) => {
+    let canClick = true; // Variável para controlar o delay entre cliques
     for (const mutation of mutations) {
         const texto = mutation.target.textContent.toLowerCase();
-            if (texto.includes("direita")) {
-                botao_prox.click();
-                break;
-            }
-            else if (texto.includes("esquerda")) {
-                botao_antes.click();
-                break;
-            }
+        if (texto.includes("direita") && canClick) {
+            botao_prox.click();
+            canClick = false;
+            setTimeout(() => {
+                canClick = true;
+            }, 2000); // Delay de 1 segundo entre cliques
+            break;
         }
-    });
+        else if (texto.includes("esquerda") && canClick) {
+            botao_antes.click();
+            canClick = false;
+            setTimeout(() => {
+                canClick = true;
+            }, 2000); // Delay de 1 segundo entre cliques
+            break;
+        }
+    }
+});
 
-    observer.observe(document.body, { childList: true, subtree: true });
-
-   
+observer.observe(document.body, { childList: true, subtree: true });
