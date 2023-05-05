@@ -1,65 +1,89 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title>Desenho com Reconhecimento de Mão</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/dist/hands.min.js"></script>
+    <title>Sistema HandBunny</title>
+    <!-- CSS-->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+
+    <!-- Fim - CSS-->
   </head>
-  <body>
-    <canvas id="canvas" width="640" height="480"></canvas>
+  <body style="background-color: #efefef;">
+    <!--Menu-->
+    <div class="container">
+        <header class="d-flex justify-content-center py-3">
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="index.html" class="nav-link" aria-current="page">Página Inicial</a></li>
+            <li class="nav-item"><a href="slide.html" class="nav-link">Apresentação de Slides</a></li>
+            <li class="nav-item"><a href="desenho.html" class="nav-link active">Desenho em Tela</a></li>
+          </ul>
+        </header>
+    </div>
+    <!-- Fim - Menu-->
 
-    <script>
-      const canvas = document.getElementById('canvas');
-      const ctx = canvas.getContext('2d');
+    <div class="container text-center">
+      <div class="row">
 
-      // Cria um objeto Hands
-      const hands = new Hands({locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`;
-      }});
-      
-      // Inicializa a detecção de mãos na imagem de entrada
-      hands.setOptions({
-        maxNumHands: 1,
-        minDetectionConfidence: 0.5,
-        minTrackingConfidence: 0.5
-      });
-      hands.onResults(onResults);
-      
-      // Inicia a webcam
-      const video = document.createElement('video');
-      video.srcObject = await navigator.mediaDevices.getUserMedia({video: true});
-      video.addEventListener('loadedmetadata', () => {
-        video.play();
-        hands.initialize();
-        requestAnimationFrame(renderFrame);
-      });
-      
-      // Desenha o resultado na tela
-      function onResults(results) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        if (results.multiHandLandmarks) {
-          for (const landmarks of results.multiHandLandmarks) {
-            drawHand(landmarks);
-          }
-        }
-      }
 
-      // Desenha uma mão na tela
-      function drawHand(landmarks) {
-        for (const point of landmarks) {
-          ctx.beginPath();
-          ctx.arc(point.x * canvas.width, point.y * canvas.height, 5, 0, 2 * Math.PI);
-          ctx.fill();
-        }
-      }
+      <!-- Coluna 1 Slide-->
+        <div class="col-sm-8">
+          <div class="card">
+            <h5 class="card-header">Apresentação <span class="badge bg-secondary">PDF somente</span></h5>            
+            <div class="card-body" style="background-color: #8d99ae;">
+              <div class="card-body">
+                <canvas id="canvas" width="500" height="500"></canvas>
+              </div>
+              <br>
+              <div>
+                <button class="btn btn-primary" id="limpar">Limpar</button>
+              </div>
+              <br>           
+            </div>
+          </div>
+        </div>
+      <!-- Fim - Coluna 1 Slide-->
+
+      <!-- Coluna 2 Cameras-->
+        <div class="col-sm-4">
+          <div class="card text-center mb-3">
+            <h5 class="card-header">WebCam</h5>
+            <div class="card-body">
+
+              <!--Camera webcam-->
+                <div class="row">       
+                  <video class="input_video"style="width: 100%; height: 100%; display:none"></video>
+                </div>
+              <!--Fim - Camera webcam-->
+
+              <!--Output com sinais-->
+                <div class="row">       
+                    <canvas class="output_canvas" style="display: flex; justify-content: center; align-items: center;"></canvas>
+                    <div class="caption">Direção do dedo: <span id="finger-direction"></span></div>
+                </div>
+              <!--Fim - Output com sinais-->
+
+            </div>
+          </div>
+        </div>
+      <!-- Fim - Coluna 2 Cameras-->
+
+
+      </div>
+    </div>
+<!-- Javascript-->
+    <!-- Mediapipe-->
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/control_utils/control_utils.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap-->
+      <script src="js/bootstrap.min.js" integrity="sha384-3oE51fG8R+q4yjzUHnlgUvVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7TxaGv6f1" crossorigin="anonymous"></script>
+
+      <script src="//mozilla.github.io/pdf.js/build/pdf.js"></script>
+      <script src="js/desenho/desenho.js"></script>
       
-      // Renderiza um quadro da webcam
-      function renderFrame() {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        hands.send({image: video});
-        requestAnimationFrame(renderFrame);
-      }
-    </script>
-  </body>
+    </body>
 </html>
