@@ -194,7 +194,7 @@ let canClick = true; // Variável para controlar o delay entre cliques
             canClick = false;
             setTimeout(() => {
                 canClick = true;
-            }, 2000); // Delay de 1 segundo entre cliques
+            }, 5000); // Delay 
             break;
         }
         else if (texto.includes("esquerda") && canClick) {
@@ -202,7 +202,7 @@ let canClick = true; // Variável para controlar o delay entre cliques
             canClick = false;
             setTimeout(() => {
                 canClick = true;
-            }, 2000); // Delay de 1 segundo entre cliques
+            }, 5000); // Delay 
             break;
         }
     }
