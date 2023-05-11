@@ -15,8 +15,14 @@ function onResults(results)
     {
         for (const landmarks of results.multiHandLandmarks)
         {
-            //drawLandmarks(canvasCtx, landmarks, {color: '#E63946', lineWidth: 1});
-            drawLandmarks(canvasCtx, [landmarks[8]], {color: '#E63946', lineWidth: 1});
+            drawConnectors(canvasCtx, landmarks, HAND_CONNECTIONS,  {color: '#F1FAEE', lineWidth: 3}  );
+            drawLandmarks(canvasCtx, landmarks, {color: '#E63946', lineWidth: 1});
+
+            // verifica a direção do dedo indicador
+            const direction = checkFingerDirection(landmarks);
+
+            // Atualiza a legenda com a direção do dedo indicador
+            fingerDirectionElement.textContent = direction;
         }
     }
     canvasCtx.restore();
@@ -47,4 +53,4 @@ const camera = new Camera(videoElement,
 });
 camera.start();
 
-observer.observe(document.body, { childList: true, subtree: true });
+
